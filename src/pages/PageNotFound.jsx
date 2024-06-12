@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Heading from "../ui/Heading";
 
 import { useMoveBack } from "../hooks/useMoveBack";
 
