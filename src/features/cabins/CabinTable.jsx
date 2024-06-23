@@ -1,15 +1,19 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const Table = styled.div`
+import Spinner from '../../ui/Spinner';
+import CabinRow from './CabinRow';
+import { useCabins } from './useCabins';
+
+const Table = styled.table`
   border: 1px solid var(--color-grey-200);
-
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
+  margin-top: 4.4rem;
 `;
 
-const TableHeader = styled.header`
+const TableHeader = styled.tr`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
   column-gap: 2.4rem;
@@ -23,3 +27,31 @@ const TableHeader = styled.header`
   color: var(--color-grey-600);
   padding: 1.6rem 2.4rem;
 `;
+
+function CabinTable() {
+  const { isLoading, cabins } = useCabins();
+  if (isLoading) {
+    return <Spinner />;
+  }
+  return (
+    <Table role="table">
+      <thead>
+        <TableHeader role="rowgroup">
+          <td></td>
+          <th role="columnheader">Cabin</th>
+          <th role="columnheader">Capacity</th>
+          <th role="columnheader">Price</th>
+          <th role="columnheader">Discount</th>
+          <td></td>
+        </TableHeader>
+      </thead>
+      <tbody>
+        {cabins.map((cabin) => (
+          <CabinRow key={cabin.id} cabin={cabin} />
+        ))}
+      </tbody>
+    </Table>
+  );
+}
+
+export default CabinTable;
