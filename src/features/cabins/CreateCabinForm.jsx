@@ -13,8 +13,8 @@ import { useEditCabin } from './useEditCabin';
 function CreateCabinForm({ cabinToEdit = {} }) {
   const { isCreating, createCabin } = useCreateCabin();
   const { isEditing, editCabin } = useEditCabin();
-
   const isWorking = isCreating || isEditing;
+
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
@@ -28,10 +28,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
     if (isEditSession)
       editCabin(
-        { newCabinData: { ...data, image }, id: editId },
+        { newCabinData: { ...data, image }, editId },
         {
           onSuccess: (data) => {
-            console.log(data);
+            console.log(editId);
             reset();
           },
         }
@@ -41,7 +41,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
         { ...data, image: image },
         {
           onSuccess: (data) => {
-            console.log(data);
+            console.log('the editId is', editId);
             reset();
           },
         }
