@@ -31,7 +31,7 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
         { newCabinData: { ...data, image }, id: updateId },
         {
           onSuccess: (data) => {
-            console.log();
+            console.log('Cabin updated', data);
             reset();
           },
         }
@@ -41,7 +41,6 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
         { ...data, image: image },
         {
           onSuccess: (data) => {
-            console.log('the  is', data);
             reset();
           },
         }

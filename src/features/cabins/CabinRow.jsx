@@ -106,7 +106,7 @@ function CabinRow({ cabin }) {
           </button>
         </BtnContainer>
       </TableRow>
-      {showForm && <CreateCabinForm CabinToEdit={cabin} />}
+      {showForm && <CreateCabinForm cabinToUpdate={cabin} />}
     </>
   );
 }

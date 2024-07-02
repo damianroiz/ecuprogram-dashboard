@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createEditCabin } from '../../services/apiCabins';
+import { createUpdateCabin } from '../../services/apiCabins';
 import { toast } from 'react-hot-toast';
 import { updateSetting as updateSettingApi } from '../../services/apiSettings';
 
@@ -9,7 +9,7 @@ export function useUpdateSetting() {
   const { mutate: updateSetting, isLoading: isUpdating } = useMutation({
     mutationFn: updateSettingApi,
     onSuccess: () => {
-      toast.success('Setting successfully edited');
+      toast.success('Setting successfully updated');
       queryClient.invalidateQueries({ queryKey: ['settings'] });
     },
     onError: (error) => toast.error(error.message),
