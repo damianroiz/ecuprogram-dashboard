@@ -6,6 +6,7 @@ import { useDeleteCabin } from './useDeleteCabin';
 import { formatCurrency } from '../../utils/helpers';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import Menus from '../../ui/Menus';
 
 const TableRow = styled.div`
   display: grid;
@@ -51,11 +52,6 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-const BtnContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
 function CabinRow({ cabin }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin();
@@ -82,7 +78,7 @@ function CabinRow({ cabin }) {
   }
 
   return (
-      <TableRow role="row">
+      <Table.Row role="row">
         <Img src={image} alt=""></Img>
         <Cabin>{name}</Cabin>
         <div>Fits up to {maxCapacity} guests</div>
@@ -92,7 +88,7 @@ function CabinRow({ cabin }) {
         ) : (
           <span>&mdash;</span>
         )}
-        <BtnContainer>
+        <div>
           <button onClick={handleDuplicate} disabled={isCreating}>
             <HiSquare2Stack />
           </button>
@@ -107,7 +103,7 @@ function CabinRow({ cabin }) {
             </Modal.Window>
           </Modal>
 
-
+            <Modal>
             <Modal.Open opens="delete">
               <button>
                 <HiTrash />
@@ -116,8 +112,13 @@ function CabinRow({ cabin }) {
             <Modal.Window name="delete">
               <ConfirmDelete resourceName="cabins" disabled={isDeleting} onConfirm={() => deleteCabin(cabinId)}/>
             </Modal.Window>
-        </BtnContainer>
-      </TableRow>
+            </Modal>
+
+            <Menus.Menu>
+              
+            </Menus.Menu>
+        </div>
+      </Table.Row>
   );
 }
 

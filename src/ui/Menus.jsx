@@ -60,3 +60,11 @@ const StyledButton = styled.button`
     transition: all 0.3s;
   }
 `;
+
+function Menus({children}) {
+  return <div>
+    {children}
+  </div>
+}
+
+export default Menus;
