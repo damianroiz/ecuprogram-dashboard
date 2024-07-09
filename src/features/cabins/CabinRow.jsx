@@ -6,6 +6,7 @@ import { useDeleteCabin } from './useDeleteCabin';
 import { formatCurrency } from '../../utils/helpers';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
+import Table from '../../ui/Table';
 import Menus from '../../ui/Menus';
 
 const TableRow = styled.div`
@@ -115,7 +116,13 @@ function CabinRow({ cabin }) {
             </Modal>
 
             <Menus.Menu>
-              
+              <Menus.Toggle id={cabinId} />
+
+              <Menus.List id={cabinId>}>
+                <Menus.Button>Duplicate</Menus.Button>
+                <Menus.Button>Edit</Menus.Button>
+                <Menus.Button>Delete</Menus.Button>
+              </Menus.List>
             </Menus.Menu>
         </div>
       </Table.Row>
