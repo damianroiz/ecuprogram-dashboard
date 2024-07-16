@@ -31,7 +31,7 @@ function BookingTable() {
           render={(booking) => (
             <BookingRow key={booking.id} booking={booking} />
           )}
-        />
+        /
       </Table>
     </Menus>
   );
