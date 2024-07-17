@@ -2,6 +2,7 @@ import BookingRow from "./BookingRow";
 
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import Pagination from "../../ui/Pagination";
 import Empty from "../../ui/Empty"
 
 import { useBookings } from "./useBookings";
@@ -31,7 +32,7 @@ function BookingTable() {
           render={(booking) => (
             <BookingRow key={booking.id} booking={booking} />
           )}
-        /
+        />
       </Table>
     </Menus>
   );
