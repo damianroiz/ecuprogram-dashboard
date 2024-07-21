@@ -1,31 +1,35 @@
 import { useQuery } from '@tanstack/react-query';
 import { getBookings } from '../../services/apiBookings';
+import useSearchParams from '../../hooks/useSearchParams';
+import { PAGE_SIZE } from '../../utils/constants';
 
-export function useBookings({filter, sortBy}) {
+export function useBookings() {
   const [searchParams] = useSearchParams();
 
-  // FILTER 
-  const filterValue = searchParams.get('status')
-  const filter = !filterValue || filterValue === "all" ? null : {field: "status", value: filterValue}
+  // FILTER
+  const filterValue = searchParams.get('status');
+  const filter =
+    !filterValue || filterValue === 'all'
+      ? null
+      : { field: 'status', value: filterValue };
 
-  // SORT 
-  const sortByRaw = searchParams.get('sortBy') || "startDate-desc";
-  const [field, direction] = sortByRaw.split("-");
-  const sortBy = {field, direction};
+  // SORT
+  const sortByRaw = searchParams.get('sortBy') || 'startDate-desc';
+  const [field, direction] = sortByRaw.split('-');
+  const sortBy = { field, direction };
 
   // PAGINATION
-  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"))
+  const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'));
 
-
-  // QUERY 
+  // QUERY
   const {
     isLoading,
-    data: {data: bookings, count} = {},
+    data: { data: bookings, count } = {},
     error,
   } = useQuery({
-    queryKey: ['bookings', filter. sortBy],
-    queryFn: () => getBookings({filter, sortBy, page}),
+    queryKey: ['bookings', filter.sortBy],
+    queryFn: () => getBookings({ filter, sortBy, page }),
   });
 
-  return { isLoading, error, bookings };
+  return { isLoading, error, bookings, count };
 }
