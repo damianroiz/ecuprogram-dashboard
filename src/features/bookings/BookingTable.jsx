@@ -33,6 +33,10 @@ function BookingTable() {
             <BookingRow key={booking.id} booking={booking} />
           )}
         />
+
+        <Table.footer>
+          <Pagination count={15} />
+        </Table.footer>
       </Table>
     </Menus>
   );

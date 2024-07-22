@@ -1,37 +1,41 @@
-import {useSearchParams} from 'react-router-dom';
+import { useCabins } from './useCabins';
 import Table from '../../ui/Table';
 import Spinner from '../../ui/Spinner';
 import CabinRow from './CabinRow';
-import { useCabins } from './useCabins';
 import Menus from '../../ui/Menus';
 import Empty from '../../ui/Empty';
+import { useSearchParams } from 'react-router-dom';
 
 function CabinTable() {
   const { isLoading, cabins } = useCabins();
-  const [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams();
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  if(!cabins.length) return <Empty resourceName="cabins" />
+  if (!cabins.length) return <Empty resourceName="cabins" />;
 
-  // 1) Filter 
+  // 1) Filter
+  const filterValue = searchParams.get('discount') || 'all';
 
-  const filterValue = searchParams.get("discount") || 'all'
-  
+  console.log(filterValue);
+  console.log('the cabins are', cabins);
+
   let filteredCabins;
-  if (filterValue === 'all') filteredCabins = cabins
-  if (filterValue === 'no-discount') filteredCabins = cabins.filter(cabin => cabin.discount === 0)
-  if (filterValue === 'with-discount') filteredCabins = cabins.filter(cabin => cabin.discount > 0)
+  if (filterValue === 'all') filteredCabins = cabins;
+  if (filterValue === 'no-discount')
+    filteredCabins = cabins.filter((cabin) => cabin.discount === 0);
+  if (filterValue === 'with-discount')
+    filteredCabins = cabins.filter((cabin) => cabin.discount > 0);
 
-  // 2) Sort 
-  const sortBy = searchParams.get("sortBy") || "startDate-asc"
+  // 2) Sort
+  const sortBy = searchParams.get('sortBy') || 'startDate-asc';
   const [field, direction] = sortBy.split('-');
-  const modifier = direction === "asc" ? 1 : -1
-  const sortedCabins = filteredCabins.sort((a, b) => (a[field] - b[field] * modifier)) 
-  
-
+  const modifier = direction === 'asc' ? 1 : -1;
+  const sortedCabins = filteredCabins.sort(
+    (a, b) => a[field] - b[field] * modifier
+  );
 
   return (
     <Menus>
@@ -45,9 +49,9 @@ function CabinTable() {
           <div></div>
         </Table.Header>
 
-        <Table.Body 
-          data={cabins}
-          render={(cabin) => <CabinRow cabin={cabin} key={cabin.id}/>}
+        <Table.Body
+          data={filteredCabins}
+          render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />
       </Table>
     </Menus>
