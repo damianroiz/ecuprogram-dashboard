@@ -1,9 +1,7 @@
 import supabase, { supabaseUrl } from './supabase';
 
 export async function getCabins() {
-  const { data, error } = await supabase
-  .from('cabins')
-  .select('*, cabins(*), guests(*)');
+  const { data, error } = await supabase.from('cabins').select('*');
   console.log(data);
 
   if (error) {
