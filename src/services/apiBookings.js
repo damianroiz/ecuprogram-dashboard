@@ -21,7 +21,7 @@ export async function getBookings({ filter, sortBy }) {
 
   if (error) {
     console.log(error);
-    throw new Error('Booking coudl not be loaded');
+    throw new Error('Booking could not be loaded');
   }
 
   return data;
