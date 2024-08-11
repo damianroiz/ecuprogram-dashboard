@@ -35,8 +35,7 @@ const StyledRow = styled(CommonRow)`
 `;
 
 const StyledBody = styled.section`
-  margin: 1.6rem 0;
-  border: 1px solid green;
+  margin: 0.8rem 0;
 `;
 
 const Footer = styled.footer`

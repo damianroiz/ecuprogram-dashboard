@@ -7,7 +7,7 @@ import Empty from '../../ui/Empty';
 import { useSearchParams } from 'react-router-dom';
 
 function CabinTable() {
-  const { isLoading, cabins } = useCabins();
+  const { cabins, isLoading } = useCabins();
   const [searchParams] = useSearchParams();
 
   if (isLoading) {
