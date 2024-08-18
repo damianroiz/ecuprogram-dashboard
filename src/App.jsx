@@ -6,6 +6,8 @@ import { Toaster } from 'react-hot-toast';
 import GlobalStyles from './styles/GlobalStyles.js';
 import Dashboard from './pages/Dashboard.jsx';
 import Bookings from './pages/Bookings.jsx';
+import Booking from './pages/Booking.jsx';
+import Checkin from './pages/Checkin.jsx';
 import Cabins from './pages/Cabins.jsx';
 import Users from './pages/Users.jsx';
 import Settings from './pages/Settings.jsx';
@@ -13,6 +15,7 @@ import Account from './pages/Account.jsx';
 import Login from './pages/Login.jsx';
 import PageNotFound from './pages/PageNotFound.jsx';
 import AppLayout from './ui/AppLayout.jsx';
+import CheckinBooking from './features/check-in-out/CheckinBooking.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +37,8 @@ function App() {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />
+            <Route path="bookings/:bookingId" element={<Booking />} />
+            <Route path="checkin/:bookingId" element={<Checkin />} />
             <Route path="cabins" element={<Cabins />} />
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
@@ -57,7 +62,8 @@ function App() {
             padding: '16px 24px',
             backgroundColor: 'var(color-grey-0)',
             color: 'var(--color-grey-700',
-            borderRadius: '5px'}
+            borderRadius: '5px',
+          },
         }}
       />
     </QueryClientProvider>
