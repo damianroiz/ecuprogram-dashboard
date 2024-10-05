@@ -1,28 +1,28 @@
-import styled from "styled-components";
-import { format, isToday } from "date-fns";
+import styled from 'styled-components';
+import { format, isToday } from 'date-fns';
 import {
   HiArrowDownOnSquare,
   HiArrowUpOnSquare,
   HiEye,
   HiTrash,
-} from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
+} from 'react-icons/hi2';
+import { useNavigate } from 'react-router-dom';
 
-import Tag from "../../ui/Tag";
-import Table from "../../ui/Table";
-import Modal from "../../ui/Modal";
-import Menus from "../../ui/Menus";
-import ConfirmDelete from "../../ui/ConfirmDelete";
+import Tag from '../../ui/Tag';
+import Table from '../../ui/Table';
+import Modal from '../../ui/Modal';
+import Menus from '../../ui/Menus';
+import ConfirmDelete from '../../ui/ConfirmDelete';
+import { useCheckout } from '../check-in-out/useCheckout';
 
-import { formatCurrency } from "../../utils/helpers";
-import { formatDistanceFromNow } from "../../utils/helpers";
-
+import { formatCurrency } from '../../utils/helpers';
+import { formatDistanceFromNow } from '../../utils/helpers';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  font-family: 'Sono';
 `;
 
 const Stacked = styled.div`
@@ -41,7 +41,7 @@ const Stacked = styled.div`
 `;
 
 const Amount = styled.div`
-  font-family: "Sono";
+  font-family: 'Sono';
   font-weight: 500;
 `;
 
@@ -60,12 +60,12 @@ function BookingRow({
   },
 }) {
   const navigate = useNavigate();
-
+  const { checkout, isCheckingOut } = useCheckout();
 
   const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
+    unconfirmed: 'blue',
+    'checked-in': 'green',
+    'checked-out': 'silver',
   };
 
   return (
@@ -80,17 +80,17 @@ function BookingRow({
       <Stacked>
         <span>
           {isToday(new Date(startDate))
-            ? "Today"
-            : formatDistanceFromNow(startDate)}{" "}
+            ? 'Today'
+            : formatDistanceFromNow(startDate)}{' '}
           &rarr; {numNights} night stay
         </span>
         <span>
-          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-          {format(new Date(endDate), "MMM dd yyyy")}
+          {format(new Date(startDate), 'MMM dd yyyy')} &mdash;{' '}
+          {format(new Date(endDate), 'MMM dd yyyy')}
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
@@ -105,7 +105,7 @@ function BookingRow({
               See details
             </Menus.Button>
 
-            {status === "unconfirmed" && (
+            {status === 'unconfirmed' && (
               <Menus.Button
                 icon={<HiArrowDownOnSquare />}
                 onClick={() => navigate(`/checkin/${bookingId}`)}
@@ -114,14 +114,20 @@ function BookingRow({
               </Menus.Button>
             )}
 
-
-
+            {status === 'checked-in' && (
+              <Menus.Button
+                icon={<HiArrowUpOnSquare />}
+                onClick={() => checkout(bookingId)}
+                disabled={isCheckingOut}
+              >
+                Check out
+              </Menus.Button>
+            )}
             <Modal.Open opens="delete">
               <Menus.Button icon={<HiTrash />}>Delete booking</Menus.Button>
             </Modal.Open>
           </Menus.List>
         </Menus.Menu>
-
       </Modal>
     </Table.Row>
   );
