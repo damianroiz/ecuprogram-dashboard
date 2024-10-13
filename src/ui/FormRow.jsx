@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
-const StyledFormRow = styled.fieldset`
+const StyledFormRow = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 24rem 1fr 1.2fr;
   gap: 2.4rem;
-  border: none;
 
   padding: 1.2rem 0;
 
@@ -37,7 +36,7 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-function FormRow({children, error, label}) {
+function FormRow({ children, error, label }) {
   return (
     <StyledFormRow>
       {label && <Label htmlFor={children.props.id}>{label}</Label>}
