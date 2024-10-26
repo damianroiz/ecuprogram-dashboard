@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from "react";
-import { createPortal } from "react-dom";
-import { HiEllipsisVertical } from "react-icons/hi2";
-import styled from "styled-components";
-import { useOutsideClick } from "../hooks/useOutsideClick";
+import { createContext, useContext, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { HiEllipsisVertical } from 'react-icons/hi2';
+import styled from 'styled-components';
+import { useOutsideClick } from '../hooks/useOutsideClick';
 
 const Menu = styled.div`
   display: flex;
@@ -68,10 +68,10 @@ const StyledButton = styled.button`
 const MenusContext = createContext();
 
 function Menus({ children }) {
-  const [openId, setOpenId] = useState("");
+  const [openId, setOpenId] = useState('');
   const [position, setPosition] = useState(null);
 
-  const close = () => setOpenId("");
+  const close = () => setOpenId('');
   const open = setOpenId;
 
   return (
@@ -87,13 +87,14 @@ function Toggle({ id }) {
   const { openId, close, open, setPosition } = useContext(MenusContext);
 
   function handleClick(e) {
-    const rect = e.target.closest("button").getBoundingClientRect();
+    e.stopPropagation();
+    const rect = e.target.closest('button').getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
 
-    openId === "" || openId !== id ? open(id) : close();
+    openId === '' || openId !== id ? open(id) : close();
   }
 
   return (
@@ -105,7 +106,7 @@ function Toggle({ id }) {
 
 function List({ id, children }) {
   const { openId, position, close } = useContext(MenusContext);
-  const ref = useOutsideClick(close);
+  const ref = useOutsideClick(close, false);
 
   if (openId !== id) return null;
 
