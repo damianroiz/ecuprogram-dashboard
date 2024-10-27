@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Logo from './Logo';
 import MainNav from './MainNav';
-import Uploader from '../data/Uploader';
 
 const StyledSidebar = styled.aside`
   background-color: #1a1a1a;
@@ -18,7 +17,6 @@ function Sidebar() {
     <StyledSidebar>
       <Logo />
       <MainNav />
-      <Uploader />
     </StyledSidebar>
   );
 }
